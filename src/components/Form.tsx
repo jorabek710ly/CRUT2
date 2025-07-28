@@ -48,7 +48,7 @@ const Form = ({
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+   
   } = useForm<IStudentForm>();
 
   useEffect(() => {
