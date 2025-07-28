@@ -28,11 +28,11 @@ const Card = ({
   setUpdate,
 }: {
   update: IStudent | null;
-  setUpdate: Dispatch<SetStateAction<null | IStudent>>;
+  setUpdate: Dispatch<SetStateAction<IStudent | null>>;
 }) => {
   const { getBlog, deleteBlog } = useBlog();
   const { mutate, isPending } = deleteBlog;
-  const { data } = getBlog;
+  const { data = [] } = getBlog; // <-- Default bo'sh massiv qo'shildi
   const blogData: IStudent[] = data;
 
   const [IDDelete, setIDDelete] = useState<string>("");
@@ -60,8 +60,9 @@ const Card = ({
     <section className="bg-white py-6 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {blogData &&
-            [...blogData].reverse().map((item) => (
+          {[...blogData]
+            .reverse()
+            .map((item) => (
               <div
                 key={item.id}
                 className={`rounded-md border ${
@@ -131,3 +132,4 @@ const Card = ({
 };
 
 export default React.memo(Card);
+
